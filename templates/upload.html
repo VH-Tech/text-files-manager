@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+<html>
+
+    <head>
+    <title>Upload new File</title>
+    <style>
+    div {
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        padding: 20px;
+        }
+
+    label{
+    font-size: xx-large;
+    }
+
+    input[type=text], select {
+    width: 50%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+        }
+
+    input[type=submit] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    }
+
+    input[type=submit]:hover {
+        background-color: #45a049;
+    }
+
+    a:link, a:visited {
+    background-color: white;
+    color: black;
+    border: 2px solid #4CAF50;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-left: 20px;
+    width: 80%;
+
+
+    }
+
+    div{
+        background-color: white;
+    }
+
+    a:hover, a:active {
+         background-color: #4CAF50;
+    }
+
+    </style>
+    </head>
+    <body>
+    <div>
+    <center><h1>Text Files Manager</h1></center>
+
+    <center><form method="post" enctype="multipart/form-data">
+      <input type="file" name="file"><br>
+      <label>Title for file:</label>
+      <input name='title' type='Text' value=''>
+      <input type="submit" value="Upload">
+    </form></center>
+    </div>
+    <center>
+    <br>
+    <h1>{{showSubheading}}</h1>
+    <br>
+
+
+
+            {%for i in range(0, len)%}
+            <a href="?file={{links[i]}}">{{titles[i]}}</a><br>
+            {%endfor%}
+
+
+
+    <br>
+        <h3>{{fileName}}</h3>
+    </center>
+    <div class="dynamic-content" id = "container">
+    {%for j in range(0, numOfLines)%}
+            <p>{{file_content[j]}}</p><br>
+    {%endfor%}
+
+    </div>
+
+    <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script type="text/javascript">
+	// Parse the URL parameter
+	function getParameterByName(name, url) {
+	    if (!url) url = window.location.href;
+	    name = name.replace(/[\[\]]/g, "\\$&");
+	    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+	        results = regex.exec(url);
+	    if (!results) return null;
+	    if (!results[2]) return '';
+	    return decodeURIComponent(results[2].replace(/\+/g, " "));
+	}
+	// Give the parameter a variable name
+	var dynamicContent = getParameterByName('file');
+
+	 $(document).ready(function() {
+
+		console.log(dynamicContent)
+		if (dynamicContent == null) {
+
+		}
+
+		else {
+			$('#container').show();
+		}
+	});
+    </script>
+
+    </body>
+    </html>
+
+{% endblock %}
